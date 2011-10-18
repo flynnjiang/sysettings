@@ -7,9 +7,14 @@ alias lh='ls -lh'
 alias ls='ls --color=auto'
 
 # vim/gvim
-alias vi='vim'
+if [ -x /usr/bin/vim ]; then
+    alias vi='vim'
+elif [ -x /usr/bin/vimx ]; then
+    alias vi='vimx'
+fi
+
 if [ -x /usr/bin/gvim ]; then
-    gi='gvim'
+    alias gi='gvim'
 fi
 
 # grep

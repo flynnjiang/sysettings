@@ -88,8 +88,10 @@ set noswapfile
 
 
 " mouse, select support
-set mouse=a
-set mousemodel=popup
+if has("mouse")
+    set mouse=a
+    set mousemodel=popup
+endif
 set keymodel=startsel,stopsel
 set selection=exclusive
 set selectmode=mouse,key

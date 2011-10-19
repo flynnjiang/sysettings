@@ -6,7 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific bash settings.
-for i in ./.bashrc.d/*.sh; do
+for i in ~/.bashrc.d/*.sh; do
     if [ -r "$i" ]; then
         . "$i" 
     fi

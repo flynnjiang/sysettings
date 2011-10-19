@@ -6,4 +6,6 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # User startup programs here.
-
+if [ -f ~/.bash_autorun ]; then
+	. ~/.bash_autorun
+fi

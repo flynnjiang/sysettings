@@ -35,6 +35,14 @@ set tm=500
 set laststatus=2
 set statusline=[%F]%y%r%m%*%=[Line:%l,Column:%c][%p%%]
 
+" mapping delay & key code delay
+set timeout
+set timeoutlen=3000
+"set notimeout
+set ttimeout
+"set ttimeoutlen=-1
+
+
 """"""""""""""""""""""""""""""""""""""""""
 " Edit setting
 """"""""""""""""""""""""""""""""""""""""""
@@ -123,14 +131,13 @@ let Tlist_Exit_OnlyWindow = 1
 """""""""""""""""""""""""""""""
 if has("cscope")
     "set csprg=/usr/bin/cscope
-    " cscope database(s) are searched first
-    set cscopetagorder=0
-    " use :cstags instead of :tag
+
+    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
     set cscopetag
 
-    set nocscopeverbose
-    if filereadable("cscope.out")
-        cscope add cscope.out
-    endif
+    " cscope database(s) are searched first, 1 for reverse order
+    set cscopetagorder=0
+
+    " show msg when any other cscope db added
     set cscopeverbose
 endif

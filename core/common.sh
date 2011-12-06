@@ -6,7 +6,7 @@ APPS_INSTALL=""
 if [ -x "$APPS_YUM_PATH" ]; then
     APPS_INSTALL="$APPS_YUM_PATH"
 elif [ -x "$APPS_APT_PATH" ]; then
-    APPS_INSTALL="$APPS_GET_PATH"
+    APPS_INSTALL="$APPS_APT_PATH"
 fi
 
 install_packages()

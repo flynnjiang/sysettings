@@ -1,17 +1,18 @@
 PACKAGE_LIST_FILE=
 
-case "$G_OS" in
+case "$LINUX_DIST" in
     fedora)
         PACKAGE_LIST_FILE="fedora.list"
         ;;
     ubuntu)
         PACKAGE_LIST_FILE="ubuntu.list"
         ;;
-    archlinux)
-        PACKAGE_LIST_FILE="archlinux.list"
+    linux_mint)
+        PACKAGE_LIST_FILE="linux_mint.list"
         ;;
     *)
-        PACKAGE_LIST_FILE="fedora.list"
+        echo "Unsupport this distribution!"
+        exit 1;
         ;;
 esac
 

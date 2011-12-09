@@ -23,6 +23,28 @@ if !exists("g:autocscope_menus")
   let g:autocscope_menus = 1
 endif
 
+" If you set this to 1, it will use gtags-cscope instead of cscope which is
+" faster than cscope.
+if !exists("g:autocscope_use_gtags")
+  let g:autocscope_use_gtags = 1
+endif
+
+" If you set this to 1, it will auto update your cscope/gtags database and
+" reset the cscope connection when you save a file.
+if !exists("g:autocscope_auto_update")
+  let g:autocscope_auto_update = 1
+endif
+
+
+if g:autocscope_use_gtags == 1
+    let g:autocscope_tagfile_name = "GTAGS"
+    set cscopeprg=gtags-cscope
+else
+    let g:autocscope_tagfile_name = "cscope.out"
+    set cscopeprg=cscope
+endif
+
+
 "==
 " windowdir
 "  Gets the directory for the file in the current window
@@ -133,7 +155,7 @@ endfunc
 "  drop cscope connections.
 function s:Unload_csdb()
   if exists("b:csdbpath")
-    if cscope_connection(3, "out", b:csdbpath)
+    if cscope_connection(3, g:autocscope_tagfile_name, b:csdbpath)
       let save_csvb = &csverb
       set nocsverb
       exe "cs kill " . b:csdbpath
@@ -148,20 +170,21 @@ endfunc
 "  cycle the loaded cscope db.
 function s:Cycle_csdb()
     if exists("b:csdbpath")
-      if cscope_connection(3, "out", b:csdbpath)
+      if cscope_connection(3, g:autocscope_tagfile_name, b:csdbpath)
         return
         "it is already loaded. don't try to reload it.
       endif
     endif
-    let newcsdbpath = s:Find_in_parent("cscope.out",s:windowdir(),$HOME)
+    let newcsdbpath = s:Find_in_parent(g:autocscope_tagfile_name,s:windowdir(),$HOME)
 "    echo "Found cscope.out at: " . newcsdbpath
 "    echo "Windowdir: " . s:windowdir()
     if newcsdbpath != "Nothing"
       let b:csdbpath = newcsdbpath
-      if !cscope_connection(3, "out", b:csdbpath)
+      if !cscope_connection(3, g:autocscope_tagfile_name, b:csdbpath)
         let save_csvb = &csverb
         set nocsverb
-        exe "cs add " . b:csdbpath . "/cscope.out " . b:csdbpath
+        exe "cd " . b:csdbpath
+        exe "cs add " . b:csdbpath . "/" . g:autocscope_tagfile_name . " " . b:csdbpath
         set csverb
         let &csverb = save_csvb
       endif
@@ -171,13 +194,37 @@ function s:Cycle_csdb()
     endif
 endfunc
 
+function s:Update_csdb()
+    if g:autocscope_auto_update != 1
+      return
+    endif
+
+    if exists("b:csdbpath")
+      if cscope_connection(3, g:autocscope_tagfile_name, b:csdbpath)
+          if g:autocscope_use_gtags == 1
+              "exe "silent !cd " . b:csdbpath . " && global -u &"
+              exe "silent !cd " . b:csdbpath . " && global -u"
+          else
+              "exe "silent !cd " . b:csdbpath . " && cscope -Rbq &"
+              exe "silent !cd " . b:csdbpath . " && cscope -Rbq"
+          endif
+
+          set nocsverb
+          exe "cs reset"
+          set csverb
+      endif
+  endif
+endfunc
+
 " auto toggle the menu
 augroup autoload_cscope
  au!
- au BufEnter *.[chly]  call <SID>Cycle_csdb() | call <SID>Cycle_macros_menus()
- au BufEnter *.cc      call <SID>Cycle_csdb() | call <SID>Cycle_macros_menus()
- au BufUnload *.[chly] call <SID>Unload_csdb() | call <SID>Cycle_macros_menus()
- au BufUnload *.cc     call <SID>Unload_csdb() | call <SID>Cycle_macros_menus()
+ au BufEnter *.[chly]       call <SID>Cycle_csdb() | call <SID>Cycle_macros_menus()
+ au BufEnter *.cc           call <SID>Cycle_csdb() | call <SID>Cycle_macros_menus()
+ au BufWritePost *.[chly]   call <SID>Update_csdb() | call <SID>Cycle_macros_menus()
+ au BufWritePost *.cc       call <SID>Update_csdb() | call <SID>Cycle_macros_menus()
+ au BufUnload *.[chly]      call <SID>Unload_csdb() | call <SID>Cycle_macros_menus()
+ au BufUnload *.cc          call <SID>Unload_csdb() | call <SID>Cycle_macros_menus()
 augroup END
 
 let &cpo = s:save_cpo

@@ -9,12 +9,24 @@ elif [ -x "$APPS_APT_PATH" ]; then
     APPS_INSTALL="$APPS_APT_PATH"
 fi
 
+IS_CONTINUE=""
 install_packages()
 {
     if [ "" != "$APPS_INSTALL" ]; then
+        echo "==========================================================================="
         echo "Will install these packages: $*"
-        echo "============================================================="
-        sudo $APPS_INSTALL "install" $@
+        echo "==========================================================================="
+
+        while true
+        do
+            read -p "Do you really want to install these packages? (y/n) [y]" IS_CONTINUE
+            if [ "y" == "$IS_CONTINUE" -o "" == "$IS_CONTINUE" ]; then
+                sudo $APPS_INSTALL "install" $@
+                break
+            elif [ "n" == "$IS_CONTINUE" ]; then
+                break
+            fi
+        done
     else
         echo "Needs yum or apt installed!"
     fi
@@ -23,9 +35,20 @@ install_packages()
 remove_packages()
 {
     if [ "" != "$APPS_INSTALL" ]; then
+        echo "==========================================================================="
         echo "Will remove these packages: $*"
-        echo "============================================================="
-        sudo $APPS_INSTALL "remove" $@
+        echo "==========================================================================="
+
+        while true
+        do
+            read -p "Do you really want to remove these packages? (y/n) [y]" IS_CONTINUE
+            if [ "y" == "$IS_CONTINUE" -o "" == "$IS_CONTINUE" ]; then
+                sudo $APPS_INSTALL "remove" $@
+                break
+            elif [ "n" == "$IS_CONTINUE" ]; then
+                break
+            fi
+        done
     else
         echo "Needs yum or apt installed!"
     fi

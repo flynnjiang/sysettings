@@ -16,6 +16,6 @@ case "$LINUX_DIST" in
         ;;
 esac
 
-PACKAGE_LIST=`cat ./$PACKAGE_LIST_FILE`
+PACKAGE_LIST=`grep -v "^#" ./$PACKAGE_LIST_FILE`
 
 install_packages $PACKAGE_LIST

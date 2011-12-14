@@ -126,6 +126,32 @@ let Tlist_Auto_Open = 1
 let Tlist_Use_Right_Window = 1
 let Tlist_Exit_OnlyWindow = 1
 
+" Supertab
+let g:SuperTabDefaultCompletionType = "<c-x><c-i>"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-i>"
+
+" DoxygenToolkit
+"let g:DoxygenToolkit_compactOneLineDoc="yes"
+let g:DoxygenToolkit_startCommentTag="/*********************************************************************"
+let g:DoxygenToolkit_endCommentTag = "********************************************************************/"
+let g:DoxygenToolkit_startCommentBlock = "/* "
+let g:DoxygenToolkit_endCommentBlock = "*/"
+
+let g:DoxygenToolkit_fileTag      = "@file     "
+let g:DoxygenToolkit_authorTag    = "@author   "
+let g:DoxygenToolkit_versionTag   = "@version  "
+let g:DoxygenToolkit_dateTag      = "@date     "
+let g:DoxygenToolkit_blockTag     = "@name     "
+let g:DoxygenToolkit_classTag     = "@class    "
+let g:DoxygenToolkit_briefTag_pre = "@brief    "
+let g:DoxygenToolkit_paramTag_pre = "@param    "
+let g:DoxygenToolkit_returnTag    = "@returns  "
+
+let g:DoxygenToolkit_versionString= "0.1"
+let g:DoxygenToolkit_authorName   = "Flynn Jiang"
+"let g:DoxygenToolkit_licenseTag   = "My own license"
+
+
 """""""""""""""""""""""""""""""
 " Cscope
 """""""""""""""""""""""""""""""

@@ -26,7 +26,7 @@ endif
 " If you set this to 1, it will use gtags-cscope instead of cscope which is
 " faster than cscope.
 if !exists("g:autocscope_use_gtags")
-  let g:autocscope_use_gtags = 1
+  let g:autocscope_use_gtags = 0
 endif
 
 " If you set this to 1, it will auto update your cscope/gtags database and

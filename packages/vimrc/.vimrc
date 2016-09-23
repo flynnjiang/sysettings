@@ -147,11 +147,32 @@ let g:DoxygenToolkit_blockTag     = "@name     "
 let g:DoxygenToolkit_classTag     = "@class    "
 let g:DoxygenToolkit_briefTag_pre = "@brief    "
 let g:DoxygenToolkit_paramTag_pre = "@param    "
-let g:DoxygenToolkit_returnTag    = "@returns  "
+let g:DoxygenToolkit_returnTag    = "@return   "
 
 let g:DoxygenToolkit_versionString= "0.1"
 let g:DoxygenToolkit_authorName   = "Flynn Jiang"
-"let g:DoxygenToolkit_licenseTag   = "My own license"
+
+let s:year = strftime("%Y")
+let s:gplv3 = "\<enter>"
+let s:gplv3 = s:gplv3 . "<one line to give the program's name and a brief idea of what it does.>\<enter>"
+let s:gplv3 = s:gplv3 . "Copyright (C) " . s:year . "  " . g:DoxygenToolkit_authorName . "\<enter>"
+let s:gplv3 = s:gplv3 . "\<enter>"
+let s:gplv3 = s:gplv3 . "This program is free software: you can redistribute it and/or modify\<enter>"
+let s:gplv3 = s:gplv3 . "it under the terms of the GNU General Public License as published by\<enter>"
+let s:gplv3 = s:gplv3 . "the Free Software Foundation, either version 3 of the License, or\<enter>"
+let s:gplv3 = s:gplv3 . "(at your option) any later version.\<enter>"
+let s:gplv3 = s:gplv3 . "\<enter>"
+let s:gplv3 = s:gplv3 . "This program is distributed in the hope that it will be useful,\<enter>"
+let s:gplv3 = s:gplv3 . "but WITHOUT ANY WARRANTY; without even the implied warranty of\<enter>"
+let s:gplv3 = s:gplv3 . "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\<enter>"
+let s:gplv3 = s:gplv3 . "GNU General Public License for more details.\<enter>"
+let s:gplv3 = s:gplv3 . "\<enter>"
+let s:gplv3 = s:gplv3 . "You should have received a copy of the GNU General Public License\<enter>"
+let s:gplv3 = s:gplv3 . "along with this program.  If not, see <http://www.gnu.org/licenses/>.\<enter>"
+let s:gplv3 = s:gplv3 . "\<enter>"
+let s:gplv3 = s:gplv3 . "Flynn Jiang <i@jiangfeng.org>"
+let g:DoxygenToolkit_licenseTag  = s:gplv3
+
 
 
 """""""""""""""""""""""""""""""

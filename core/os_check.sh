@@ -8,6 +8,8 @@ if [ -r /etc/issue ]; then
         LINUX_DIST="ubuntu"
     elif [ "" != "$(grep -i 'Linux Mint' /etc/issue)" ]; then
         LINUX_DIST="linux_mint"
+    elif [ "" != "$(grep -i 'Debian' /etc/issue)" ]; then
+        LINUX_DIST="debian"
     fi
 fi
 

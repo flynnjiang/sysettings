@@ -16,6 +16,17 @@ endif
 " No-compatible mode
 set nocompatible
 
+" Encodings
+" Windows use code page 936(GBK)
+" fileencoding for new file.
+" fileencodings for supported files.
+" termencoding for output
+" encoding for vim inside
+set encoding=utf-8
+let &termencoding=&encoding
+set fileencoding=utf-8
+set fileencodings=utf-8,cp936,ucs-bom
+
 
 " History
 set history=32

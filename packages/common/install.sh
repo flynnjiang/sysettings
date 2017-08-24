@@ -1,21 +1,9 @@
-PACKAGE_LIST_FILE=
+#!/bin/sh
 
-case "$LINUX_DIST" in
-    fedora)
-        PACKAGE_LIST_FILE="fedora.list"
-        ;;
-    ubuntu)
-        PACKAGE_LIST_FILE="ubuntu.list"
-        ;;
-    linux_mint)
-        PACKAGE_LIST_FILE="linux_mint.list"
-        ;;
-    *)
-        echo "Unsupport this distribution!"
-        exit 1;
-        ;;
-esac
+if [ -r ./$LINUX_DIST.list ]; then
+    PACKAGE_LIST=`grep -v "^#" ./$LINUX_DIST.list`
+    install_packages $PACKAGE_LIST
+else
+    echo "warning: can't found any package to install!"
+fi
 
-PACKAGE_LIST=`grep -v "^#" ./$PACKAGE_LIST_FILE`
-
-install_packages $PACKAGE_LIST

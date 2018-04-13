@@ -206,7 +206,10 @@ function s:Update_csdb()
               exe "silent !cd " . b:csdbpath . " && global -u"
           else
               "exe "silent !cd " . b:csdbpath . " && cscope -Rbq &"
-              exe "silent !cd " . b:csdbpath . " && cscope -Rbq"
+              if exists("b:csdbpath" . "/cscope.files")              
+                  exe "silent !cd " . b:csdbpath . " && cscope -bq"
+              else
+                  exe "silent !cd " . b:csdbpath . " && cscope -Rbq"
           endif
 
           set nocsverb

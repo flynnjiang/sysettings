@@ -210,6 +210,7 @@ function s:Update_csdb()
                   exe "silent !cd " . b:csdbpath . " && cscope -bq"
               else
                   exe "silent !cd " . b:csdbpath . " && cscope -Rbq"
+              endif
           endif
 
           set nocsverb

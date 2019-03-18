@@ -31,12 +31,15 @@ set fileencodings=utf-8,cp936,ucs-bom
 " History
 set history=32
 
+" 80 column tips
+set colorcolumn=81
 
 " set leader char
 let mapleader=","
 let g:mapleader=","
 
 " No bell
+set belloff=all
 set noerrorbells
 set novisualbell
 set t_vb=
